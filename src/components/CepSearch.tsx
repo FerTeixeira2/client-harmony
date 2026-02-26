@@ -4,10 +4,14 @@ import { ViaCepResponse } from "@/types/customer";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Search, Loader2, MapPin } from "lucide-react";
+import { Search, Loader2, MapPin, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 
-export function CepSearch() {
+interface CepSearchProps {
+  onBack: () => void;
+}
+
+export function CepSearch({ onBack }: CepSearchProps) {
   const [cep, setCep] = useState("");
   const [result, setResult] = useState<ViaCepResponse | null>(null);
   const { fetchAddress, loading } = useViaCep();
@@ -25,6 +29,9 @@ export function CepSearch() {
 
   return (
     <div className="max-w-xl">
+      <button onClick={onBack} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4">
+        <ArrowLeft className="h-4 w-4" /> Voltar ao Dashboard
+      </button>
       <h2 className="text-xl font-bold text-foreground mb-2">Pesquisar CEP</h2>
       <p className="text-sm text-muted-foreground mb-6">Consulte endereços usando a API ViaCEP</p>
 

@@ -8,7 +8,7 @@ import { CustomerModal } from "@/components/CustomerModal";
 import { CustomerView } from "@/components/CustomerView";
 import { CustomerCharts } from "@/components/CustomerCharts";
 import { CepSearch } from "@/components/CepSearch";
-import { LayoutGrid, BarChart3, LogOut } from "lucide-react";
+import { LayoutGrid, BarChart3, LogOut, Languages } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,6 +28,12 @@ const Index = () => {
   const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
   const [viewingCustomer, setViewingCustomer] = useState<Customer | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [lang, setLang] = useState<"pt" | "en">("pt");
+
+  const t = {
+    pt: { dashboard: "Dashboard", subtitle: "Gerencie os clientes do sistema", listagem: "Listagem", graficos: "Gráficos", admin: "Administrador", sair: "Sair", confirmar: "Confirmar exclusão", confirmarMsg: "Tem certeza que deseja excluir este cliente? Esta ação não pode ser desfeita.", cancelar: "Cancelar", excluir: "Excluir" },
+    en: { dashboard: "Dashboard", subtitle: "Manage system customers", listagem: "List", graficos: "Charts", admin: "Administrator", sair: "Logout", confirmar: "Confirm deletion", confirmarMsg: "Are you sure you want to delete this customer? This action cannot be undone.", cancelar: "Cancel", excluir: "Delete" },
+  }[lang];
 
   const handleNavigate = (view: string) => {
     if (view === "cadastrar") {
@@ -59,15 +65,22 @@ const Index = () => {
         <header className="h-14 border-b border-border flex items-center justify-between px-6">
           <div />
           <div className="flex items-center gap-4">
+            <button
+              onClick={() => setLang(lang === "pt" ? "en" : "pt")}
+              className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors border border-border rounded-lg px-3 py-1.5"
+            >
+              <Languages className="h-4 w-4" />
+              {lang === "pt" ? "EN" : "PT"}
+            </button>
             <div className="flex items-center gap-2">
               <div className="h-8 w-8 rounded-full bg-accent flex items-center justify-center text-xs font-bold text-accent-foreground">A</div>
               <div>
-                <p className="text-xs font-medium text-foreground">Administrador</p>
+                <p className="text-xs font-medium text-foreground">{t.admin}</p>
                 <p className="text-xs text-muted-foreground">Admin</p>
               </div>
             </div>
             <button className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
-              <LogOut className="h-4 w-4" /> Sair
+              <LogOut className="h-4 w-4" /> {t.sair}
             </button>
           </div>
         </header>
@@ -75,11 +88,11 @@ const Index = () => {
         {/* Content */}
         <main className="flex-1 p-6">
           {currentView === "pesquisar-cep" ? (
-            <CepSearch />
+            <CepSearch onBack={() => setCurrentView("dashboard")} />
           ) : (
             <>
-              <h2 className="text-2xl font-bold text-foreground">Dashboard</h2>
-              <p className="text-sm text-muted-foreground mb-6">Gerencie os clientes do sistema</p>
+              <h2 className="text-2xl font-bold text-foreground">{t.dashboard}</h2>
+              <p className="text-sm text-muted-foreground mb-6">{t.subtitle}</p>
 
               <StatsCards customers={customers} />
 
@@ -91,7 +104,7 @@ const Index = () => {
                     tab === "listagem" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"
                   }`}
                 >
-                  <LayoutGrid className="h-4 w-4" /> Listagem
+                  <LayoutGrid className="h-4 w-4" /> {t.listagem}
                 </button>
                 <button
                   onClick={() => setTab("graficos")}
@@ -99,7 +112,7 @@ const Index = () => {
                     tab === "graficos" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"
                   }`}
                 >
-                  <BarChart3 className="h-4 w-4" /> Gráficos
+                  <BarChart3 className="h-4 w-4" /> {t.graficos}
                 </button>
               </div>
 
@@ -136,15 +149,15 @@ const Index = () => {
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
         <AlertDialogContent className="bg-card border-border">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-foreground">Confirmar exclusão</AlertDialogTitle>
+            <AlertDialogTitle className="text-foreground">{t.confirmar}</AlertDialogTitle>
             <AlertDialogDescription className="text-muted-foreground">
-              Tem certeza que deseja excluir este cliente? Esta ação não pode ser desfeita.
+              {t.confirmarMsg}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="border-border text-foreground hover:bg-secondary">Cancelar</AlertDialogCancel>
+            <AlertDialogCancel className="border-border text-foreground hover:bg-secondary">{t.cancelar}</AlertDialogCancel>
             <AlertDialogAction onClick={handleConfirmDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-              Excluir
+              {t.excluir}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

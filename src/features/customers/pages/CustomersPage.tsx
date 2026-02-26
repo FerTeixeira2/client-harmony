@@ -27,6 +27,7 @@ export default function CustomersPage() {
 
   const handleNavigate = (view: string) => {
     if (view === "cadastrar") {
+      setCurrentView("cadastrar");
       setEditingCustomer(null);
       setModalOpen(true);
     } else {
@@ -101,8 +102,17 @@ export default function CustomersPage() {
         </main>
       </div>
 
-      <CustomerModal open={modalOpen} onClose={() => { setModalOpen(false); setEditingCustomer(null); }}
-        onSave={addCustomer} onUpdate={updateCustomer} customer={editingCustomer} />
+      <CustomerModal
+          open={modalOpen}
+          onClose={() => {
+            setModalOpen(false);
+            setEditingCustomer(null);
+            setCurrentView("dashboard");
+          }}
+          onSave={addCustomer}
+          onUpdate={updateCustomer}
+          customer={editingCustomer}
+        />
 
       <CustomerView open={!!viewingCustomer} onClose={() => setViewingCustomer(null)} customer={viewingCustomer} />
 

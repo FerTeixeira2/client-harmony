@@ -1,14 +1,17 @@
 import { Users, Search, LayoutDashboard } from "lucide-react";
+import { useI18n } from "@/shared/i18n";
 
-interface AppSidebarProps {
+interface SidebarProps {
   onNavigate: (view: string) => void;
   currentView: string;
 }
 
-export function AppSidebar({ onNavigate, currentView }: AppSidebarProps) {
+export function Sidebar({ onNavigate, currentView }: SidebarProps) {
+  const { t } = useI18n();
+
   const items = [
-    { title: "Cadastrar Cliente", icon: Users, view: "cadastrar" },
-    { title: "Pesquisar CEP", icon: Search, view: "pesquisar-cep" },
+    { title: t.registerCustomer, icon: Users, view: "cadastrar" },
+    { title: t.searchCep, icon: Search, view: "pesquisar-cep" },
   ];
 
   return (
@@ -16,8 +19,8 @@ export function AppSidebar({ onNavigate, currentView }: AppSidebarProps) {
       <div className="flex items-center gap-3 mb-6 px-2">
         <LayoutDashboard className="h-8 w-8 text-primary" />
         <div>
-          <h1 className="text-sm font-bold text-foreground">Gestão de Clientes</h1>
-          <p className="text-xs text-muted-foreground">Sistema de Cadastro</p>
+          <h1 className="text-sm font-bold text-foreground">{t.sidebarTitle}</h1>
+          <p className="text-xs text-muted-foreground">{t.sidebarSubtitle}</p>
         </div>
       </div>
 

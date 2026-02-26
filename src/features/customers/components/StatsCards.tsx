@@ -1,11 +1,13 @@
+import { Customer } from "@/features/customers/services/customerService";
+import { useI18n } from "@/shared/i18n";
 import { Users, UserCheck, MapPin, Mail } from "lucide-react";
-import { Customer } from "@/types/customer";
 
 interface StatsCardsProps {
   customers: Customer[];
 }
 
 export function StatsCards({ customers }: StatsCardsProps) {
+  const { t } = useI18n();
   const total = customers.length;
   const withEmail = customers.filter((c) => c.email).length;
   const states = new Set(customers.map((c) => c.estado)).size;
@@ -15,10 +17,10 @@ export function StatsCards({ customers }: StatsCardsProps) {
   ).length;
 
   const cards = [
-    { label: "Total de Clientes", value: total, icon: Users, color: "text-primary" },
-    { label: "Com E-mail", value: withEmail, icon: Mail, color: "text-accent" },
-    { label: "Estados", value: states, icon: MapPin, color: "text-destructive" },
-    { label: "Cadastros Hoje", value: todayCount, icon: UserCheck, color: "text-primary" },
+    { label: t.totalCustomers, value: total, icon: Users, color: "text-primary" },
+    { label: t.withEmail, value: withEmail, icon: Mail, color: "text-accent" },
+    { label: t.states, value: states, icon: MapPin, color: "text-destructive" },
+    { label: t.registeredToday, value: todayCount, icon: UserCheck, color: "text-primary" },
   ];
 
   return (

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ViaCepResponse } from "@/types/customer";
+import { ViaCepResponse } from "@/features/customers/services/customerService";
 
 export function useViaCep() {
   const [loading, setLoading] = useState(false);
@@ -7,7 +7,7 @@ export function useViaCep() {
   const fetchAddress = async (cep: string): Promise<ViaCepResponse | null> => {
     const cleanCep = cep.replace(/\D/g, "");
     if (cleanCep.length !== 8) return null;
-    
+
     setLoading(true);
     try {
       const res = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);

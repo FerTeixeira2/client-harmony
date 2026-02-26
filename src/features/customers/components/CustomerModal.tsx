@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Customer } from "@/types/customer";
-import { useViaCep } from "@/hooks/useViaCep";
+import { Customer } from "@/features/customers/services/customerService";
+import { useViaCep } from "@/shared/hooks/useViaCep";
+import { useI18n } from "@/shared/i18n";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,9 +24,9 @@ const emptyForm = {
 };
 
 export function CustomerModal({ open, onClose, onSave, onUpdate, customer }: CustomerModalProps) {
+  const { t } = useI18n();
   const [form, setForm] = useState(emptyForm);
   const { fetchAddress, loading: cepLoading } = useViaCep();
-
   const isEditing = !!customer;
 
   useEffect(() => {
@@ -57,9 +58,9 @@ export function CustomerModal({ open, onClose, onSave, onUpdate, customer }: Cus
         cidade: result.localidade,
         estado: result.uf,
       }));
-      toast.success("Endereço encontrado!");
+      toast.success(t.addressFound);
     } else if (form.cep.replace(/\D/g, "").length === 8) {
-      toast.error("CEP não encontrado");
+      toast.error(t.cepNotFound);
     }
   };
 
@@ -74,15 +75,15 @@ export function CustomerModal({ open, onClose, onSave, onUpdate, customer }: Cus
 
   const handleSubmit = () => {
     if (!form.nome || !form.email || !form.cpf) {
-      toast.error("Preencha os campos obrigatórios: Nome, Email e CPF");
+      toast.error(t.requiredFields);
       return;
     }
     if (isEditing && onUpdate) {
       onUpdate(customer!.id, form);
-      toast.success("Cliente atualizado!");
+      toast.success(t.customerUpdated);
     } else {
       onSave(form);
-      toast.success("Cliente cadastrado!");
+      toast.success(t.customerCreated);
     }
     onClose();
   };
@@ -96,7 +97,7 @@ export function CustomerModal({ open, onClose, onSave, onUpdate, customer }: Cus
       <DialogContent className="bg-card border-border max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-foreground text-lg">
-            {isEditing ? "Editar Cliente" : "Cadastrar Cliente"}
+            {isEditing ? t.editCustomer : t.createCustomer}
           </DialogTitle>
         </DialogHeader>
 
@@ -109,77 +110,77 @@ export function CustomerModal({ open, onClose, onSave, onUpdate, customer }: Cus
               ) : (
                 <>
                   <Upload className="h-8 w-8 text-primary" />
-                  <span className="text-xs text-primary">Selecionar foto</span>
+                  <span className="text-xs text-primary">{t.selectPhoto}</span>
                 </>
               )}
               <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
             </label>
-            <span className="text-xs text-muted-foreground">JPG, PNG ou GIF. Max 5MB.</span>
+            <span className="text-xs text-muted-foreground">{t.photoFormats}</span>
           </div>
 
           {/* Form fields */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label className="text-foreground">Nome *</Label>
+              <Label className="text-foreground">{t.name} *</Label>
               <Input value={form.nome} onChange={(e) => handleChange("nome", e.target.value)}
-                placeholder="Nome completo" className="bg-secondary border-border mt-1" />
+                placeholder={t.fullName} className="bg-secondary border-border mt-1" />
             </div>
             <div>
-              <Label className="text-foreground">Email *</Label>
+              <Label className="text-foreground">{t.email} *</Label>
               <Input value={form.email} onChange={(e) => handleChange("email", e.target.value)}
-                placeholder="email@exemplo.com" className="bg-secondary border-border mt-1" />
+                placeholder={t.emailPlaceholder} className="bg-secondary border-border mt-1" />
             </div>
             <div>
-              <Label className="text-foreground">Telefone</Label>
+              <Label className="text-foreground">{t.phone}</Label>
               <Input value={form.telefone} onChange={(e) => handleChange("telefone", e.target.value)}
-                placeholder="(00) 00000-0000" className="bg-secondary border-border mt-1" />
+                placeholder={t.phonePlaceholder} className="bg-secondary border-border mt-1" />
             </div>
             <div>
-              <Label className="text-foreground">CPF *</Label>
+              <Label className="text-foreground">{t.cpf} *</Label>
               <Input value={form.cpf} onChange={(e) => handleChange("cpf", e.target.value)}
-                placeholder="000.000.000-00" className="bg-secondary border-border mt-1" />
+                placeholder={t.cpfPlaceholder} className="bg-secondary border-border mt-1" />
             </div>
           </div>
 
           {/* Address */}
           <div className="border-t border-border pt-4">
-            <h3 className="text-sm font-semibold text-foreground mb-3">Endereço</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-3">{t.address}</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <Label className="text-foreground">CEP</Label>
                 <div className="relative">
                   <Input value={form.cep} onChange={(e) => handleChange("cep", e.target.value)}
-                    onBlur={handleCepBlur} placeholder="00000-000" className="bg-secondary border-border mt-1" />
+                    onBlur={handleCepBlur} placeholder={t.cepPlaceholder} className="bg-secondary border-border mt-1" />
                   {cepLoading && <Loader2 className="absolute right-3 top-3 h-4 w-4 animate-spin text-primary" />}
                 </div>
               </div>
               <div className="md:col-span-2">
-                <Label className="text-foreground">Logradouro</Label>
+                <Label className="text-foreground">{t.street}</Label>
                 <Input value={form.logradouro} onChange={(e) => handleChange("logradouro", e.target.value)}
-                  placeholder="Rua, Avenida..." className="bg-secondary border-border mt-1" />
+                  placeholder={t.streetPlaceholder} className="bg-secondary border-border mt-1" />
               </div>
               <div>
-                <Label className="text-foreground">Número</Label>
+                <Label className="text-foreground">{t.number}</Label>
                 <Input value={form.numero} onChange={(e) => handleChange("numero", e.target.value)}
                   placeholder="Nº" className="bg-secondary border-border mt-1" />
               </div>
               <div>
-                <Label className="text-foreground">Complemento</Label>
+                <Label className="text-foreground">{t.complement}</Label>
                 <Input value={form.complemento} onChange={(e) => handleChange("complemento", e.target.value)}
-                  placeholder="Apto, Bloco..." className="bg-secondary border-border mt-1" />
+                  placeholder={t.complementPlaceholder} className="bg-secondary border-border mt-1" />
               </div>
               <div>
-                <Label className="text-foreground">Bairro</Label>
+                <Label className="text-foreground">{t.neighborhood}</Label>
                 <Input value={form.bairro} onChange={(e) => handleChange("bairro", e.target.value)}
-                  placeholder="Bairro" className="bg-secondary border-border mt-1" />
+                  placeholder={t.neighborhood} className="bg-secondary border-border mt-1" />
               </div>
               <div>
-                <Label className="text-foreground">Cidade</Label>
+                <Label className="text-foreground">{t.city}</Label>
                 <Input value={form.cidade} onChange={(e) => handleChange("cidade", e.target.value)}
-                  placeholder="Cidade" className="bg-secondary border-border mt-1" />
+                  placeholder={t.city} className="bg-secondary border-border mt-1" />
               </div>
               <div>
-                <Label className="text-foreground">Estado</Label>
+                <Label className="text-foreground">{t.state}</Label>
                 <Input value={form.estado} onChange={(e) => handleChange("estado", e.target.value)}
                   placeholder="UF" className="bg-secondary border-border mt-1" maxLength={2} />
               </div>
@@ -189,16 +190,10 @@ export function CustomerModal({ open, onClose, onSave, onUpdate, customer }: Cus
           {/* Map preview */}
           {mapQuery && (
             <div className="border-t border-border pt-4">
-              <h3 className="text-sm font-semibold text-foreground mb-3">Localização</h3>
+              <h3 className="text-sm font-semibold text-foreground mb-3">{t.location}</h3>
               <div className="rounded-lg overflow-hidden border border-border h-48">
-                <iframe
-                  title="Mapa"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  loading="lazy"
-                  src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
-                />
+                <iframe title="Map" width="100%" height="100%" style={{ border: 0 }} loading="lazy"
+                  src={`https://www.google.com/maps?q=${mapQuery}&output=embed`} />
               </div>
             </div>
           )}
@@ -206,10 +201,10 @@ export function CustomerModal({ open, onClose, onSave, onUpdate, customer }: Cus
           {/* Actions */}
           <div className="flex justify-end gap-3 pt-4 border-t border-border">
             <Button variant="outline" onClick={onClose} className="border-border text-foreground hover:bg-secondary">
-              Cancelar
+              {t.cancel}
             </Button>
             <Button onClick={handleSubmit} className="bg-primary text-primary-foreground hover:bg-primary/90">
-              {isEditing ? "Salvar" : "Cadastrar"}
+              {isEditing ? t.save : t.register}
             </Button>
           </div>
         </div>

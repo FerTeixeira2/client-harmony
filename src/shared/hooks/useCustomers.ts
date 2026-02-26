@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Customer } from "@/types/customer";
+import { Customer } from "@/features/customers/services/customerService";
 
 const STORAGE_KEY = "customers";
 

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Customer } from "@/types/customer";
+import { Customer } from "@/features/customers/services/customerService";
 import { Eye, Pencil, Trash2, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { useI18n } from "@/shared/i18n";
 
 interface CustomerTableProps {
   customers: Customer[];
@@ -13,6 +14,7 @@ interface CustomerTableProps {
 const PAGE_SIZE = 8;
 
 export function CustomerTable({ customers, onEdit, onDelete, onView }: CustomerTableProps) {
+  const { t } = useI18n();
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
@@ -30,7 +32,7 @@ export function CustomerTable({ customers, onEdit, onDelete, onView }: CustomerT
       <div className="flex items-center gap-3 mb-4">
         <Search className="h-4 w-4 text-muted-foreground" />
         <Input
-          placeholder="Pesquisar por nome ou email"
+          placeholder={t.searchPlaceholder}
           value={search}
           onChange={(e) => { setSearch(e.target.value); setPage(1); }}
           className="bg-secondary border-border"
@@ -41,21 +43,21 @@ export function CustomerTable({ customers, onEdit, onDelete, onView }: CustomerT
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border text-muted-foreground">
-              <th className="text-left py-3 px-2">Foto</th>
-              <th className="text-left py-3 px-2">Nome</th>
-              <th className="text-left py-3 px-2">Email</th>
-              <th className="text-left py-3 px-2">Telefone</th>
-              <th className="text-left py-3 px-2">CPF</th>
-              <th className="text-left py-3 px-2">Cidade/UF</th>
-              <th className="text-left py-3 px-2">Cadastro</th>
-              <th className="text-left py-3 px-2">Ações</th>
+              <th className="text-left py-3 px-2">{t.photo}</th>
+              <th className="text-left py-3 px-2">{t.name}</th>
+              <th className="text-left py-3 px-2">{t.email}</th>
+              <th className="text-left py-3 px-2">{t.phone}</th>
+              <th className="text-left py-3 px-2">{t.cpf}</th>
+              <th className="text-left py-3 px-2">{t.cityState}</th>
+              <th className="text-left py-3 px-2">{t.registrationDate}</th>
+              <th className="text-left py-3 px-2">{t.actions}</th>
             </tr>
           </thead>
           <tbody>
             {paginated.length === 0 ? (
               <tr>
                 <td colSpan={8} className="text-center py-8 text-muted-foreground">
-                  Nenhum cliente encontrado
+                  {t.noCustomersFound}
                 </td>
               </tr>
             ) : (
@@ -99,21 +101,15 @@ export function CustomerTable({ customers, onEdit, onDelete, onView }: CustomerT
       </div>
 
       <div className="flex items-center justify-between mt-4 text-sm text-muted-foreground">
-        <span>Mostrando {paginated.length} de {filtered.length} clientes</span>
+        <span>{t.showing} {paginated.length} {t.of} {filtered.length} {t.customers}</span>
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-            disabled={page === 1}
-            className="p-1 rounded hover:bg-secondary disabled:opacity-30"
-          >
+          <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}
+            className="p-1 rounded hover:bg-secondary disabled:opacity-30">
             <ChevronLeft className="h-4 w-4" />
           </button>
           <span>{page} / {totalPages}</span>
-          <button
-            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            disabled={page === totalPages}
-            className="p-1 rounded hover:bg-secondary disabled:opacity-30"
-          >
+          <button onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages}
+            className="p-1 rounded hover:bg-secondary disabled:opacity-30">
             <ChevronRight className="h-4 w-4" />
           </button>
         </div>

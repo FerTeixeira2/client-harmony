@@ -1,4 +1,5 @@
-import { Customer } from "@/types/customer";
+import { Customer } from "@/features/customers/services/customerService";
+import { useI18n } from "@/shared/i18n";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { MapPin, Mail, Phone, CreditCard, Calendar } from "lucide-react";
 
@@ -9,6 +10,7 @@ interface CustomerViewProps {
 }
 
 export function CustomerView({ open, onClose, customer }: CustomerViewProps) {
+  const { t } = useI18n();
   if (!customer) return null;
 
   const mapQuery = customer.logradouro && customer.cidade
@@ -19,7 +21,7 @@ export function CustomerView({ open, onClose, customer }: CustomerViewProps) {
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="bg-card border-border max-w-lg">
         <DialogHeader>
-          <DialogTitle className="text-foreground">Detalhes do Cliente</DialogTitle>
+          <DialogTitle className="text-foreground">{t.customerDetails}</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           <div className="flex items-center gap-4">
@@ -46,12 +48,17 @@ export function CustomerView({ open, onClose, customer }: CustomerViewProps) {
                 {customer.logradouro}, {customer.numero} {customer.complemento && `- ${customer.complemento}`}, {customer.bairro}, {customer.cidade}/{customer.estado} - CEP: {customer.cep}
               </span>
             </div>
-            <div className="flex items-center gap-2"><Calendar className="h-4 w-4 text-primary" /><span className="text-muted-foreground">Cadastro: {new Date(customer.dataCadastro).toLocaleDateString("pt-BR")} | Atualização: {new Date(customer.dataAtualizacao).toLocaleDateString("pt-BR")}</span></div>
+            <div className="flex items-center gap-2">
+              <Calendar className="h-4 w-4 text-primary" />
+              <span className="text-muted-foreground">
+                {t.registration}: {new Date(customer.dataCadastro).toLocaleDateString("pt-BR")} | {t.update}: {new Date(customer.dataAtualizacao).toLocaleDateString("pt-BR")}
+              </span>
+            </div>
           </div>
 
           {mapQuery && (
             <div className="rounded-lg overflow-hidden border border-border h-40">
-              <iframe title="Mapa" width="100%" height="100%" style={{ border: 0 }} loading="lazy"
+              <iframe title="Map" width="100%" height="100%" style={{ border: 0 }} loading="lazy"
                 src={`https://www.google.com/maps?q=${mapQuery}&output=embed`} />
             </div>
           )}

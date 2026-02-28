@@ -6,7 +6,7 @@ interface SidebarProps {
   currentView: string;
 }
 
-export function Sidebar({ onNavigate, currentView }: SidebarProps) {
+export function Sidebar({ onNavigate}: SidebarProps) {
   const { t } = useI18n();
 
   const items = [

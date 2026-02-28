@@ -10,6 +10,7 @@ import { CustomerView } from "@/features/customers/components/CustomerView";
 import { CustomerCharts } from "@/features/customers/components/CustomerCharts";
 import { CepSearch } from "@/features/customers/components/CepSearch";
 import { LayoutGrid, BarChart3, LogOut, Languages } from "lucide-react";
+import AgendaPage from "@/features/customers/pages/AgendaPage";
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
@@ -71,35 +72,54 @@ export default function CustomersPage() {
         </header>
 
         <main className="flex-1 p-6">
-          {currentView === "pesquisar-cep" ? (
-            <CepSearch onBack={() => setCurrentView("dashboard")} />
-          ) : (
-            <>
-              <h2 className="text-2xl font-bold text-foreground">{t.dashboard}</h2>
-              <p className="text-sm text-muted-foreground mb-6">{t.dashboardSubtitle}</p>
+  {currentView === "agenda" ? (
+     <AgendaPage onBack={() => setCurrentView("dashboard")} />
+  ) : currentView === "pesquisar-cep" ? (
+    <CepSearch onBack={() => setCurrentView("dashboard")} />
+  ) : (
+    <>
+      <h2 className="text-2xl font-bold text-foreground">{t.dashboard}</h2>
+      <p className="text-sm text-muted-foreground mb-6">{t.dashboardSubtitle}</p>
 
-              <StatsCards customers={customers} />
+      <StatsCards customers={customers} />
 
-              <div className="flex items-center gap-2 mt-6">
-                <button onClick={() => setTab("listagem")}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${tab === "listagem" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"}`}>
-                  <LayoutGrid className="h-4 w-4" /> {t.list}
-                </button>
-                <button onClick={() => setTab("graficos")}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${tab === "graficos" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"}`}>
-                  <BarChart3 className="h-4 w-4" /> {t.charts}
-                </button>
-              </div>
+      <div className="flex items-center gap-2 mt-6">
+        <button
+          onClick={() => setTab("listagem")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            tab === "listagem"
+              ? "bg-primary text-primary-foreground"
+              : "text-muted-foreground hover:bg-secondary"
+          }`}
+        >
+          <LayoutGrid className="h-4 w-4" /> {t.list}
+        </button>
 
-              {tab === "listagem" ? (
-                <CustomerTable customers={customers} onEdit={handleEdit}
-                  onDelete={(id) => setDeleteId(id)} onView={(c) => setViewingCustomer(c)} />
-              ) : (
-                <CustomerCharts customers={customers} />
-              )}
-            </>
-          )}
-        </main>
+        <button
+          onClick={() => setTab("graficos")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            tab === "graficos"
+              ? "bg-primary text-primary-foreground"
+              : "text-muted-foreground hover:bg-secondary"
+          }`}
+        >
+          <BarChart3 className="h-4 w-4" /> {t.charts}
+        </button>
+      </div>
+
+      {tab === "listagem" ? (
+        <CustomerTable
+          customers={customers}
+          onEdit={handleEdit}
+          onDelete={(id) => setDeleteId(id)}
+          onView={(c) => setViewingCustomer(c)}
+        />
+      ) : (
+        <CustomerCharts customers={customers} />
+      )}
+    </>
+  )}
+</main>
       </div>
 
       <CustomerModal

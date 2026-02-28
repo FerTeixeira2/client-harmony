@@ -64,6 +64,12 @@ export default {
           purple: "hsl(var(--chart-purple))",
           orange: "hsl(var(--chart-orange))",
         },
+        event: {
+          green: "hsl(var(--event-green))",
+          blue: "hsl(var(--event-blue))",
+          yellow: "hsl(var(--event-yellow))",
+          red: "hsl(var(--event-red))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -1,5 +1,5 @@
-import { Users, Search, LayoutDashboard } from "lucide-react";
 import { useI18n } from "@/shared/i18n";
+import { Users, Search, LayoutDashboard, Calendar } from "lucide-react";
 
 interface SidebarProps {
   onNavigate: (view: string) => void;
@@ -12,6 +12,7 @@ export function Sidebar({ onNavigate, currentView }: SidebarProps) {
   const items = [
     { title: t.registerCustomer, icon: Users, view: "cadastrar" },
     { title: t.searchCep, icon: Search, view: "pesquisar-cep" },
+    { title: "Agenda", icon: Calendar, view: "agenda" },
   ];
 
   return (
@@ -30,25 +31,14 @@ export function Sidebar({ onNavigate, currentView }: SidebarProps) {
       </div>
   
       {items.map((item) => {
-        const isActive = currentView === item.view;
-  
         const baseClass =
-          "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors w-full text-left";
-  
-        const activeClass = "bg-primary text-primary-foreground";
-        const inactiveClass = "text-sidebar-foreground hover:bg-sidebar-accent";
-  
+          "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full text-left bg-[#00F2FF] text-black";
+
         return (
           <button
             key={item.view}
             onClick={() => onNavigate(item.view)}
-            className={`${baseClass} ${
-              item.view === "cadastrar" || item.view === "pesquisar-cep"
-                ? activeClass
-                : isActive
-                ? activeClass
-                : inactiveClass
-            }`}
+            className={baseClass}
           >
             <item.icon className="h-4 w-4" />
             {item.title}

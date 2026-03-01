@@ -25,9 +25,9 @@ public class PessoaRepository : IPessoaRepository
     public async Task<IEnumerable<Pessoa>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         return await _context.Pessoas
-            .Include(p => p.Telefones)
-            .Include(p => p.Enderecos)
             .Where(p => p.StatusId == 1)
+            .Include(p => p.Telefones.Where(t => t.Ativo))
+            .Include(p => p.Enderecos.Where(e => e.Ativo))
             .OrderByDescending(p => p.DataCadastro)
             .AsNoTracking()
             .ToListAsync(cancellationToken);
@@ -49,10 +49,24 @@ public class PessoaRepository : IPessoaRepository
 
     public async Task DesativarAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        var pessoa = await _context.Pessoas.FindAsync([id], cancellationToken)
+        var pessoa = await _context.Pessoas
+            .Include(p => p.Telefones)
+            .Include(p => p.Enderecos)
+            .FirstOrDefaultAsync(p => p.Id == id, cancellationToken)
             ?? throw new Domain.Exceptions.NotFoundException("Pessoa", id);
+
+        // Pessoa
         pessoa.StatusId = 2;
         pessoa.DataDesativacao = DateTime.UtcNow;
+
+        // Telefones
+        foreach (var telefone in pessoa.Telefones)
+            telefone.Ativo = false; // = 0
+
+        // Endereços
+        foreach (var endereco in pessoa.Enderecos)
+            endereco.Ativo = false; // = 0
+
         await _context.SaveChangesAsync(cancellationToken);
     }
 }

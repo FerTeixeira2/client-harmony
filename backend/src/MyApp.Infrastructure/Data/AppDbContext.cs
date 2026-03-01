@@ -15,5 +15,12 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+
+        modelBuilder.Entity<Pessoa>()
+            .ToTable(tb =>
+            {
+                tb.HasTrigger("TR_Pessoas_Update");
+                tb.HasTrigger("TR_Pessoas_Auditoria");
+            });
     }
 }

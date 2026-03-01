@@ -12,8 +12,8 @@ import { toast } from "sonner";
 interface CustomerModalProps {
   open: boolean;
   onClose: () => void;
-  onSave: (data: Omit<Customer, "id" | "dataCadastro" | "dataAtualizacao">) => void;
-  onUpdate?: (id: string, data: Partial<Customer>) => void;
+  onSave: (data: Omit<Customer, "id" | "dataCadastro" | "dataAtualizacao">) => void | Promise<void>;
+  onUpdate?: (id: string, data: Partial<Customer>) => void | Promise<void>;
   customer?: Customer | null;
 }
 
@@ -73,19 +73,28 @@ export function CustomerModal({ open, onClose, onSave, onUpdate, customer }: Cus
     }
   };
 
-  const handleSubmit = () => {
+  const [saving, setSaving] = useState(false);
+
+  const handleSubmit = async () => {
     if (!form.nome || !form.email || !form.cpf) {
       toast.error(t.requiredFields);
       return;
     }
-    if (isEditing && onUpdate) {
-      onUpdate(customer!.id, form);
-      toast.success(t.customerUpdated);
-    } else {
-      onSave(form);
-      toast.success(t.customerCreated);
+    setSaving(true);
+    try {
+      if (isEditing && onUpdate) {
+        await onUpdate(customer!.id, form);
+        toast.success(t.customerUpdated);
+      } else {
+        await onSave(form);
+        toast.success(t.customerCreated);
+      }
+      onClose();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : t.errorSaving);
+    } finally {
+      setSaving(false);
     }
-    onClose();
   };
 
   const mapQuery = form.logradouro && form.cidade && form.estado
@@ -203,8 +212,8 @@ export function CustomerModal({ open, onClose, onSave, onUpdate, customer }: Cus
             <Button variant="outline" onClick={onClose} className="border-border text-foreground hover:bg-secondary">
               {t.cancel}
             </Button>
-            <Button onClick={handleSubmit} className="bg-primary text-primary-foreground hover:bg-primary/90">
-              {isEditing ? t.save : t.register}
+            <Button onClick={handleSubmit} disabled={saving} className="bg-primary text-primary-foreground hover:bg-primary/90">
+              {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : (isEditing ? t.save : t.register)}
             </Button>
           </div>
         </div>

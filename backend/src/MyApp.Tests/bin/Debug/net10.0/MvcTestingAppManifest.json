@@ -1,0 +1,6 @@
+{
+  "MyApp.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Api",
+  "MyApp.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Application",
+  "MyApp.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Domain",
+  "MyApp.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Infrastructure"
+}

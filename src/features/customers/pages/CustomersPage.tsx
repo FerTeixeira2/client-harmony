@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Loader2 } from "lucide-react";
 import { useCustomers } from "@/shared/hooks/useCustomers";
 import { useI18n } from "@/shared/i18n";
 import { Customer } from "@/features/customers/services/customerService";
@@ -17,7 +18,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export default function CustomersPage() {
-  const { customers, addCustomer, updateCustomer, deleteCustomer } = useCustomers();
+  const { customers, loading, error, addCustomer, updateCustomer, deleteCustomer } = useCustomers();
   const { t, lang, setLang } = useI18n();
   const [currentView, setCurrentView] = useState("dashboard");
   const [tab, setTab] = useState<"listagem" | "graficos">("listagem");
@@ -41,8 +42,19 @@ export default function CustomersPage() {
     setModalOpen(true);
   };
 
-  const handleConfirmDelete = () => {
-    if (deleteId) { deleteCustomer(deleteId); setDeleteId(null); }
+  const [deleting, setDeleting] = useState(false);
+
+  const handleConfirmDelete = async () => {
+    if (!deleteId) return;
+    setDeleting(true);
+    try {
+      await deleteCustomer(deleteId);
+      setDeleteId(null);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setDeleting(false);
+    }
   };
 
   return (
@@ -81,6 +93,19 @@ export default function CustomersPage() {
       <h2 className="text-2xl font-bold text-foreground">{t.dashboard}</h2>
       <p className="text-sm text-muted-foreground mb-6">{t.dashboardSubtitle}</p>
 
+      {error && (
+        <div className="mb-4 p-4 rounded-lg bg-destructive/10 text-destructive border border-destructive/30">
+          {error}
+        </div>
+      )}
+
+      {loading ? (
+        <div className="flex items-center justify-center py-16 gap-2 text-muted-foreground">
+          <Loader2 className="h-6 w-6 animate-spin" />
+          <span>Carregando clientes...</span>
+        </div>
+      ) : (
+        <>
       <StatsCards customers={customers} />
 
       <div className="flex items-center gap-2 mt-6">
@@ -118,6 +143,8 @@ export default function CustomersPage() {
         <CustomerCharts customers={customers} />
       )}
     </>
+      )}
+    </>
   )}
 </main>
       </div>
@@ -144,8 +171,8 @@ export default function CustomersPage() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel className="border-border text-foreground hover:bg-secondary">{t.cancel}</AlertDialogCancel>
-            <AlertDialogAction onClick={handleConfirmDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-              {t.delete}
+            <AlertDialogAction onClick={handleConfirmDelete} disabled={deleting} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+              {deleting ? <Loader2 className="h-4 w-4 animate-spin" /> : t.delete}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

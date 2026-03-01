@@ -74,6 +74,7 @@ export const translations = {
     requiredFields: "Preencha os campos obrigatórios: Nome, Email e CPF",
     customerUpdated: "Cliente atualizado!",
     customerCreated: "Cliente cadastrado!",
+    errorSaving: "Erro ao salvar. Tente novamente.",
 
     // View
     customerDetails: "Detalhes do Cliente",
@@ -169,6 +170,7 @@ export const translations = {
     requiredFields: "Fill in the required fields: Name, Email and CPF",
     customerUpdated: "Customer updated!",
     customerCreated: "Customer registered!",
+    errorSaving: "Error saving. Please try again.",
 
     // View
     customerDetails: "Customer Details",

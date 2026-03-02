@@ -33,6 +33,28 @@ public class PessoaRepository : IPessoaRepository
             .ToListAsync(cancellationToken);
     }
 
+    public async Task<(IReadOnlyList<Pessoa> Items, int TotalCount)> GetPagedAsync(int page, int pageSize, CancellationToken cancellationToken = default)
+    {
+        if (page <= 0) page = 1;
+        if (pageSize <= 0) pageSize = 10;
+
+        var query = _context.Pessoas
+            .Where(p => p.StatusId == 1)
+            .Include(p => p.Telefones.Where(t => t.Ativo))
+            .Include(p => p.Enderecos.Where(e => e.Ativo))
+            .OrderByDescending(p => p.DataCadastro);
+
+        var total = await query.CountAsync(cancellationToken);
+
+        var items = await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .AsNoTracking()
+            .ToListAsync(cancellationToken);
+
+        return (items, total);
+    }
+
     public async Task AddAsync(Pessoa pessoa, Telefone telefone, Endereco endereco, CancellationToken cancellationToken = default)
     {
         await _context.Pessoas.AddAsync(pessoa, cancellationToken);

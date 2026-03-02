@@ -22,6 +22,19 @@ public class PessoasController : ControllerBase
         return Ok(pessoas);
     }
 
+    [HttpGet("paged")]
+    public async Task<ActionResult<PagedResult<PessoaDto>>> GetPaged(
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 8,
+        CancellationToken cancellationToken = default)
+    {
+        if (page <= 0) page = 1;
+        if (pageSize <= 0) pageSize = 8;
+
+        var result = await _pessoaService.GetPagedAsync(page, pageSize, cancellationToken);
+        return Ok(result);
+    }
+
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<PessoaDto>> GetById(Guid id, CancellationToken cancellationToken = default)
     {

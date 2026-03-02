@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Tests\\MyApp.Tests.csproj": {}
+    "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Tests\\MyApp.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Api\\MyApp.Api.csproj": {
+    "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Api\\MyApp.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Api\\MyApp.Api.csproj",
+        "projectUniqueName": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Api\\MyApp.Api.csproj",
         "projectName": "MyApp.Api",
-        "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Api\\MyApp.Api.csproj",
+        "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Api\\MyApp.Api.csproj",
         "packagesPath": "C:\\Users\\Ferna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Api\\obj\\",
+        "outputPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ferna\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,11 +26,11 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Application\\MyApp.Application.csproj": {
-                "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Application\\MyApp.Application.csproj"
+              "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Application\\MyApp.Application.csproj": {
+                "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Application\\MyApp.Application.csproj"
               },
-              "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj"
+              "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj"
               }
             }
           }
@@ -499,14 +499,14 @@
         }
       }
     },
-    "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Application\\MyApp.Application.csproj": {
+    "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Application\\MyApp.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Application\\MyApp.Application.csproj",
+        "projectUniqueName": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Application\\MyApp.Application.csproj",
         "projectName": "MyApp.Application",
-        "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Application\\MyApp.Application.csproj",
+        "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Application\\MyApp.Application.csproj",
         "packagesPath": "C:\\Users\\Ferna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Application\\obj\\",
+        "outputPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ferna\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -521,8 +521,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj": {
-                "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj"
+              "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj": {
+                "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj"
               }
             }
           }
@@ -846,14 +846,14 @@
         }
       }
     },
-    "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj": {
+    "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj",
         "projectName": "MyApp.Domain",
-        "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj",
+        "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj",
         "packagesPath": "C:\\Users\\Ferna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Domain\\obj\\",
+        "outputPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ferna\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1179,14 +1179,14 @@
         }
       }
     },
-    "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj": {
+    "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj",
         "projectName": "MyApp.Infrastructure",
-        "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\Ferna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ferna\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1201,11 +1201,11 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Application\\MyApp.Application.csproj": {
-                "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Application\\MyApp.Application.csproj"
+              "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Application\\MyApp.Application.csproj": {
+                "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Application\\MyApp.Application.csproj"
               },
-              "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj": {
-                "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj"
+              "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj": {
+                "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj"
               }
             }
           }
@@ -1547,14 +1547,14 @@
         }
       }
     },
-    "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Tests\\MyApp.Tests.csproj": {
+    "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Tests\\MyApp.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Tests\\MyApp.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Tests\\MyApp.Tests.csproj",
         "projectName": "MyApp.Tests",
-        "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Tests\\MyApp.Tests.csproj",
+        "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Tests\\MyApp.Tests.csproj",
         "packagesPath": "C:\\Users\\Ferna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Tests\\obj\\",
+        "outputPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ferna\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1569,8 +1569,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Api\\MyApp.Api.csproj": {
-                "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Api\\MyApp.Api.csproj"
+              "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Api\\MyApp.Api.csproj": {
+                "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Api\\MyApp.Api.csproj"
               }
             }
           }

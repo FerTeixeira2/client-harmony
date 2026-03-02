@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pVtRMtbuea4=",
+  "dgSpecHash": "Zp2fQd0hM9w=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Infrastructure\\MyApp.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ferna\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\Ferna\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",

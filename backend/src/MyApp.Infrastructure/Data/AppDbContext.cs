@@ -11,6 +11,7 @@ public class AppDbContext : DbContext
     public DbSet<Pessoa> Pessoas => Set<Pessoa>();
     public DbSet<Telefone> Telefones => Set<Telefone>();
     public DbSet<Endereco> Enderecos => Set<Endereco>();
+    public DbSet<Agenda> Agendas => Set<Agenda>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,5 +23,12 @@ public class AppDbContext : DbContext
                 tb.HasTrigger("TR_Pessoas_Update");
                 tb.HasTrigger("TR_Pessoas_Auditoria");
             });
+
+        modelBuilder.Entity<Agenda>()
+            .ToTable("Agenda", tb =>
+            {
+                tb.HasTrigger("TR_Agenda_Update");
+            });
     }
 }
+

@@ -1,4 +1,3 @@
-import { Calendar as CalendarIcon } from "lucide-react";
 import MiniCalendar from "./MiniCalendar";
 
 interface AgendaSidebarProps {
@@ -16,7 +15,6 @@ const AgendaSidebar = ({
   today,
   onMonthChange,
   onDaySelect,
-  onConnectGoogle,
 }: AgendaSidebarProps) => {
   return (
     <div className="w-44 flex-shrink-0 border-r border-border p-4 overflow-hidden">

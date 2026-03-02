@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "eJCpHf1L0SM=",
+  "dgSpecHash": "51SCPbRGYFY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\gerenciamento_clientes_tekann\\client-harmony\\backend\\src\\MyApp.Application\\MyApp.Application.csproj",
+  "projectFilePath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Application\\MyApp.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ferna\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512",
     "C:\\Users\\Ferna\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\12.1.1\\fluentvalidation.dependencyinjectionextensions.12.1.1.nupkg.sha512",

@@ -17,6 +17,72 @@ interface CustomerModalProps {
   customer?: Customer | null;
 }
 
+// ===== VALIDAÇÕES =====
+
+// Email
+const isValidEmail = (email: string) => {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+};
+
+// Remove tudo que não for número
+const onlyNumbers = (value: string) => value.replace(/\D/g, "");
+
+// ======================
+// MÁSCARAS VISUAIS
+// ======================
+
+const formatCPF = (value: string) => {
+  const numbers = onlyNumbers(value).slice(0, 11);
+
+  return numbers
+    .replace(/^(\d{3})(\d)/, "$1.$2")
+    .replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3")
+    .replace(/\.(\d{3})(\d)/, ".$1-$2");
+};
+
+const formatPhone = (value: string) => {
+  const numbers = onlyNumbers(value).slice(0, 11);
+
+  if (numbers.length <= 2)
+    return numbers.replace(/^(\d{0,2})/, "($1");
+
+  if (numbers.length <= 6)
+    return numbers.replace(/^(\d{2})(\d+)/, "($1) $2");
+
+  if (numbers.length <= 10)
+    return numbers.replace(/^(\d{2})(\d{4})(\d+)/, "($1) $2-$3");
+
+  return numbers.replace(/^(\d{2})(\d{5})(\d+)/, "($1) $2-$3");
+};
+
+// CPF válido (validação oficial)
+const isValidCPF = (cpf: string) => {
+  cpf = onlyNumbers(cpf);
+
+  if (cpf.length !== 11) return false;
+  if (/^(\d)\1+$/.test(cpf)) return false;
+
+  let sum = 0;
+  let remainder;
+
+  for (let i = 1; i <= 9; i++)
+    sum += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+
+  remainder = (sum * 10) % 11;
+  if (remainder === 10 || remainder === 11) remainder = 0;
+  if (remainder !== parseInt(cpf.substring(9, 10))) return false;
+
+  sum = 0;
+  for (let i = 1; i <= 10; i++)
+    sum += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+
+  remainder = (sum * 10) % 11;
+  if (remainder === 10 || remainder === 11) remainder = 0;
+
+  return remainder === parseInt(cpf.substring(10, 11));
+};
+
 const emptyForm = {
   nome: "", email: "", telefone: "", cpf: "",
   cep: "", logradouro: "", numero: "", complemento: "",
@@ -32,8 +98,8 @@ export function CustomerModal({ open, onClose, onSave, onUpdate, customer }: Cus
   useEffect(() => {
     if (customer) {
       setForm({
-        nome: customer.nome, email: customer.email, telefone: customer.telefone,
-        cpf: customer.cpf, cep: customer.cep, logradouro: customer.logradouro,
+        nome: customer.nome, email: customer.email, telefone: formatPhone(customer.telefone),
+        cpf: formatCPF(customer.cpf), cep: customer.cep, logradouro: customer.logradouro,
         numero: customer.numero, complemento: customer.complemento,
         bairro: customer.bairro, cidade: customer.cidade, estado: customer.estado,
         imagemUrl: customer.imagemUrl,
@@ -80,6 +146,22 @@ export function CustomerModal({ open, onClose, onSave, onUpdate, customer }: Cus
       toast.error(t.requiredFields);
       return;
     }
+  
+    if (!isValidEmail(form.email)) {
+      toast.error("Email inválido.");
+      return;
+    }
+  
+    if (form.telefone && onlyNumbers(form.telefone).length !== 11) {
+      toast.error("Telefone deve conter 11 dígitos.");
+      return;
+    }
+  
+    if (!isValidCPF(onlyNumbers(form.cpf))) {
+      toast.error("CPF inválido.");
+      return;
+    }
+  
     setSaving(true);
     try {
       if (isEditing && onUpdate) {
@@ -111,22 +193,6 @@ export function CustomerModal({ open, onClose, onSave, onUpdate, customer }: Cus
         </DialogHeader>
 
         <div className="space-y-4">
-          {/* Image upload */}
-          <div className="flex flex-col items-center gap-2">
-            <label className="cursor-pointer flex flex-col items-center gap-2 border-2 border-dashed border-border rounded-xl p-6 hover:border-primary/50 transition-colors w-full max-w-[200px]">
-              {form.imagemUrl ? (
-                <img src={form.imagemUrl} alt="Preview" className="h-20 w-20 rounded-full object-cover" />
-              ) : (
-                <>
-                  <Upload className="h-8 w-8 text-primary" />
-                  <span className="text-xs text-primary">{t.selectPhoto}</span>
-                </>
-              )}
-              <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
-            </label>
-            <span className="text-xs text-muted-foreground">{t.photoFormats}</span>
-          </div>
-
           {/* Form fields */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -141,13 +207,25 @@ export function CustomerModal({ open, onClose, onSave, onUpdate, customer }: Cus
             </div>
             <div>
               <Label className="text-foreground">{t.phone}</Label>
-              <Input value={form.telefone} onChange={(e) => handleChange("telefone", e.target.value)}
-                placeholder={t.phonePlaceholder} className="bg-secondary border-border mt-1" />
+              <Input
+                value={form.telefone}
+                onChange={(e) =>
+                  handleChange("telefone", formatPhone(e.target.value))
+                }
+                placeholder="(51) 99999-9999"
+                className="bg-secondary border-border mt-1"
+              />
             </div>
             <div>
               <Label className="text-foreground">{t.cpf} *</Label>
-              <Input value={form.cpf} onChange={(e) => handleChange("cpf", e.target.value)}
-                placeholder={t.cpfPlaceholder} className="bg-secondary border-border mt-1" />
+              <Input
+                value={form.cpf}
+                onChange={(e) =>
+                  handleChange("cpf", formatCPF(e.target.value))
+                }
+                placeholder="000.000.000-00"
+                className="bg-secondary border-border mt-1"
+              />
             </div>
           </div>
 

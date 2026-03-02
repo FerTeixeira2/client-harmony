@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ViaCepResponse } from "@/features/customers/services/customerService";
+import { fetchCep } from "@/api/cep";
 
 export function useViaCep() {
   const [loading, setLoading] = useState(false);
@@ -10,10 +11,16 @@ export function useViaCep() {
 
     setLoading(true);
     try {
-      const res = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
-      const data: ViaCepResponse = await res.json();
-      if (data.erro) return null;
-      return data;
+      const data = await fetchCep(cep);
+      if (!data) return null;
+      return {
+        cep: cleanCep,
+        logradouro: data.logradouro,
+        complemento: data.complemento,
+        bairro: data.bairro,
+        localidade: data.localidade,
+        uf: data.uf,
+      };
     } catch {
       return null;
     } finally {

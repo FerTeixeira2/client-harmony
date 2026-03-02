@@ -19,14 +19,18 @@ import {
 } from "@/components/ui/select";
 import { EventColor, HOURS, eventColorClasses } from "../types";
 
+type ClienteOption = { id: string; nome: string };
+
 interface EventDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   selectedDay: Date;
   onSelectedDayChange: (d: Date) => void;
+  clientes: ClienteOption[];
+  isEditing: boolean;
   newEvent: {
     title: string;
-    client: string;
+    clientId: string;
     description: string;
     startHour: string;
     endHour: string;
@@ -34,13 +38,14 @@ interface EventDialogProps {
   };
   onNewEventChange: (e: {
     title: string;
-    client: string;
+    clientId: string;
     description: string;
     startHour: string;
     endHour: string;
     color: EventColor;
   }) => void;
   onSubmit: () => void;
+  onDelete?: () => void;
 }
 
 const EventDialog = ({
@@ -48,15 +53,18 @@ const EventDialog = ({
   onOpenChange,
   selectedDay,
   onSelectedDayChange,
+  clientes,
+  isEditing,
   newEvent,
   onNewEventChange,
   onSubmit,
+  onDelete,
 }: EventDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="bg-card border-border">
         <DialogHeader>
-          <DialogTitle>Novo Evento</DialogTitle>
+          <DialogTitle>{isEditing ? "Editar Evento" : "Novo Evento"}</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">
@@ -75,13 +83,23 @@ const EventDialog = ({
           {/* Cliente */}
           <div>
             <Label>Cliente</Label>
-            <Input
-              value={newEvent.client}
-              onChange={(e) =>
-                onNewEventChange({ ...newEvent, client: e.target.value })
+            <Select
+              value={newEvent.clientId}
+              onValueChange={(v) =>
+                onNewEventChange({ ...newEvent, clientId: v })
               }
-              placeholder="Nome do cliente"
-            />
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Selecione um cliente" />
+              </SelectTrigger>
+              <SelectContent>
+                {clientes.map((c) => (
+                  <SelectItem key={c.id} value={c.id}>
+                    {c.nome}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Descrição */}
@@ -181,14 +199,16 @@ const EventDialog = ({
         </div>
 
         <DialogFooter>
-          <Button
-            variant="outline"
-            onClick={() => onOpenChange(false)}
-          >
+          {isEditing && onDelete && (
+            <Button variant="destructive" onClick={onDelete}>
+              Excluir
+            </Button>
+          )}
+          <Button variant="outline" onClick={() => onOpenChange(false)}>
             Cancelar
           </Button>
           <Button onClick={onSubmit}>
-            Criar Evento
+            {isEditing ? "Salvar" : "Criar Evento"}
           </Button>
         </DialogFooter>
       </DialogContent>

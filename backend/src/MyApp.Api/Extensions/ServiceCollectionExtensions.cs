@@ -15,7 +15,9 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IPessoaService, PessoaService>();
         services.AddScoped<IPessoaRepository, PessoaRepository>();
+        services.AddScoped<IAgendaRepository, AgendaRepository>();
         services.AddValidatorsFromAssemblyContaining<CreatePessoaValidator>();
+        services.AddScoped<IAgendaService, AgendaService>();
         return services;
     }
 

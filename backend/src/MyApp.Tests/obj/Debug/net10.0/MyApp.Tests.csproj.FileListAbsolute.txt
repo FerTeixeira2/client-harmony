@@ -472,3 +472,6 @@ C:\Users\Ferna\OneDrive\Desktop\DEV\gerenciamento_clientes_tekann\client-harmony
 C:\Users\Ferna\OneDrive\Desktop\DEV\gerenciamento_clientes_tekann\client-harmony\backend\src\MyApp.Tests\obj\Debug\net10.0\MyApp.Tests.pdb
 C:\Users\Ferna\OneDrive\Desktop\DEV\gerenciamento_clientes_tekann\client-harmony\backend\src\MyApp.Tests\obj\Debug\net10.0\MyApp.Tests.genruntimeconfig.cache
 C:\Users\Ferna\OneDrive\Desktop\DEV\gerenciamento_clientes_tekann\client-harmony\backend\src\MyApp.Tests\obj\Debug\net10.0\ref\MyApp.Tests.dll
+C:\Users\Ferna\OneDrive\Desktop\DEV\novo_gerencimaneto_clientes\client-harmony\backend\src\MyApp.Tests\obj\Debug\net10.0\MyApp.Tests.dll
+C:\Users\Ferna\OneDrive\Desktop\DEV\novo_gerencimaneto_clientes\client-harmony\backend\src\MyApp.Tests\obj\Debug\net10.0\refint\MyApp.Tests.dll
+C:\Users\Ferna\OneDrive\Desktop\DEV\novo_gerencimaneto_clientes\client-harmony\backend\src\MyApp.Tests\obj\Debug\net10.0\MyApp.Tests.pdb

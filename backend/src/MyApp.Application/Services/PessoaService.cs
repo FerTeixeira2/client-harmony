@@ -27,6 +27,20 @@ public class PessoaService : IPessoaService
         return pessoas.Select(p => ToDto(p));
     }
 
+    public async Task<PagedResult<PessoaDto>> GetPagedAsync(int page, int pageSize, CancellationToken cancellationToken = default)
+    {
+        var (items, total) = await _repository.GetPagedAsync(page, pageSize, cancellationToken);
+        var dtos = items.Select(p => ToDto(p));
+
+        return new PagedResult<PessoaDto>
+        {
+            Items = dtos,
+            TotalCount = total,
+            Page = page,
+            PageSize = pageSize
+        };
+    }
+
     public async Task<PessoaDto> CreateAsync(CreatePessoaDto dto, CancellationToken cancellationToken = default)
     {
         var pessoaId = Guid.NewGuid();

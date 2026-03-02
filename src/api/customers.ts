@@ -3,6 +3,13 @@ import type { Customer } from "@/features/customers/services/customerService";
 
 const BASE = "/api/pessoas";
 
+export interface PagedResult<T> {
+  items: T[];
+  totalCount: number;
+  page: number;
+  pageSize: number;
+}
+
 export async function fetchCustomers(): Promise<Customer[]> {
   const list = await apiFetch<Customer[]>(BASE);
   return list.map((c) => ({
@@ -12,6 +19,26 @@ export async function fetchCustomers(): Promise<Customer[]> {
     dataAtualizacao: c.dataAtualizacao ?? "",
     imagemUrl: c.imagemUrl ?? "",
   }));
+}
+
+export async function fetchCustomersPaged(
+  page: number,
+  pageSize: number
+): Promise<PagedResult<Customer>> {
+  const result = await apiFetch<PagedResult<Customer>>(
+    `${BASE}/paged?page=${page}&pageSize=${pageSize}`
+  );
+
+  return {
+    ...result,
+    items: result.items.map((c) => ({
+      ...c,
+      complemento: c.complemento ?? "",
+      dataCadastro: c.dataCadastro ?? "",
+      dataAtualizacao: c.dataAtualizacao ?? "",
+      imagemUrl: c.imagemUrl ?? "",
+    })),
+  };
 }
 
 export async function fetchCustomerById(id: string): Promise<Customer | null> {

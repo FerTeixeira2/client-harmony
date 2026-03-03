@@ -7,9 +7,9 @@ export function useCustomers() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const loadCustomers = useCallback(async () => {
+  const loadCustomers = useCallback(async (silent = false) => {
     try {
-      setLoading(true);
+      if (!silent) setLoading(true);
       setError(null);
       const data = await api.fetchCustomers();
       setCustomers(data);
@@ -17,7 +17,7 @@ export function useCustomers() {
       setError(err instanceof Error ? err.message : "Erro ao carregar clientes");
       setCustomers([]);
     } finally {
-      setLoading(false);
+      if (!silent) setLoading(false);
     }
   }, []);
 
@@ -27,23 +27,27 @@ export function useCustomers() {
 
   const addCustomer = useCallback(
     async (data: Omit<Customer, "id" | "dataCadastro" | "dataAtualizacao">) => {
-      const created = await api.createCustomer(data);
-      setCustomers((prev) => [...prev, created]);
+      await api.createCustomer(data);
+      await loadCustomers(true);
     },
-    []
+    [loadCustomers]
   );
 
-  const updateCustomer = useCallback(async (id: string, data: Partial<Customer>) => {
-    const updated = await api.updateCustomer(id, data);
-    setCustomers((prev) =>
-      prev.map((c) => (c.id === id ? { ...c, ...updated } : c))
-    );
-  }, []);
+  const updateCustomer = useCallback(
+    async (id: string, data: Partial<Customer>) => {
+      await api.updateCustomer(id, data);
+      await loadCustomers(true);
+    },
+    [loadCustomers]
+  );
 
-  const deleteCustomer = useCallback(async (id: string) => {
-    await api.deleteCustomer(id);
-    setCustomers((prev) => prev.filter((c) => c.id !== id));
-  }, []);
+  const deleteCustomer = useCallback(
+    async (id: string) => {
+      await api.deleteCustomer(id);
+      await loadCustomers(true);
+    },
+    [loadCustomers]
+  );
 
   return {
     customers,
@@ -52,6 +56,6 @@ export function useCustomers() {
     addCustomer,
     updateCustomer,
     deleteCustomer,
-    refetch: loadCustomers,
+    refetch: () => loadCustomers(false),
   };
 }

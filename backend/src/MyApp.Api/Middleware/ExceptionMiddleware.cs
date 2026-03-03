@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using MyApp.Api.Models;
 using MyApp.Domain.Exceptions;
 
@@ -39,6 +40,10 @@ public class ExceptionMiddleware
             NotFoundException => (HttpStatusCode.NotFound, new ErrorResponse(exception.Message, 404)),
             DomainException => (HttpStatusCode.BadRequest, new ErrorResponse(exception.Message, 400)),
             ArgumentException => (HttpStatusCode.BadRequest, new ErrorResponse(exception.Message, 400)),
+            DbUpdateException dbEx => (HttpStatusCode.BadRequest,
+                new ErrorResponse(
+                    dbEx.InnerException?.Message ?? dbEx.Message ?? "Não foi possível salvar. Verifique se os dados são válidos (ex.: CPF ou e-mail já cadastrado).",
+                    400)),
             _ => (HttpStatusCode.InternalServerError,
                 new ErrorResponse(
                     _env.IsDevelopment() ? exception.Message : "Ocorreu um erro interno no servidor.",

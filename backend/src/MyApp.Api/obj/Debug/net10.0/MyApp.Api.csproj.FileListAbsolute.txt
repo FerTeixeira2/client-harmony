@@ -325,3 +325,12 @@ C:\Users\Ferna\OneDrive\Desktop\DEV\novo_gerencimaneto_clientes\client-harmony\b
 C:\Users\Ferna\OneDrive\Desktop\DEV\novo_gerencimaneto_clientes\client-harmony\backend\src\MyApp.Api\obj\Debug\net10.0\MyApp.Api.dll
 C:\Users\Ferna\OneDrive\Desktop\DEV\novo_gerencimaneto_clientes\client-harmony\backend\src\MyApp.Api\obj\Debug\net10.0\refint\MyApp.Api.dll
 C:\Users\Ferna\OneDrive\Desktop\DEV\novo_gerencimaneto_clientes\client-harmony\backend\src\MyApp.Api\obj\Debug\net10.0\MyApp.Api.pdb
+C:\Users\Ferna\OneDrive\Desktop\DEV\novo_gerencimaneto_clientes\client-harmony\backend\src\MyApp.Api\bin\Debug\net10.0\appsettings.Development.json
+C:\Users\Ferna\OneDrive\Desktop\DEV\novo_gerencimaneto_clientes\client-harmony\backend\src\MyApp.Api\bin\Debug\net10.0\appsettings.json
+C:\Users\Ferna\OneDrive\Desktop\DEV\novo_gerencimaneto_clientes\client-harmony\backend\src\MyApp.Api\bin\Debug\net10.0\MyApp.Api.staticwebassets.endpoints.json
+C:\Users\Ferna\OneDrive\Desktop\DEV\novo_gerencimaneto_clientes\client-harmony\backend\src\MyApp.Api\bin\Debug\net10.0\MyApp.Api.deps.json
+C:\Users\Ferna\OneDrive\Desktop\DEV\novo_gerencimaneto_clientes\client-harmony\backend\src\MyApp.Api\bin\Debug\net10.0\MyApp.Api.runtimeconfig.json
+C:\Users\Ferna\OneDrive\Desktop\DEV\novo_gerencimaneto_clientes\client-harmony\backend\src\MyApp.Api\bin\Debug\net10.0\MyApp.Api.pdb
+C:\Users\Ferna\OneDrive\Desktop\DEV\novo_gerencimaneto_clientes\client-harmony\backend\src\MyApp.Api\obj\Debug\net10.0\MyApp.Api.csproj.Up2Date
+C:\Users\Ferna\OneDrive\Desktop\DEV\novo_gerencimaneto_clientes\client-harmony\backend\src\MyApp.Api\obj\Debug\net10.0\MyApp.Api.genruntimeconfig.cache
+C:\Users\Ferna\OneDrive\Desktop\DEV\novo_gerencimaneto_clientes\client-harmony\backend\src\MyApp.Api\obj\Debug\net10.0\ref\MyApp.Api.dll

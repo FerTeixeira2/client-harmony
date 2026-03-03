@@ -1,3 +1,4 @@
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using MyApp.Application.Dtos;
 using MyApp.Application.Interfaces;
@@ -9,10 +10,12 @@ namespace MyApp.Api.Controllers;
 public class PessoasController : ControllerBase
 {
     private readonly IPessoaService _pessoaService;
+    private readonly IValidator<CreatePessoaDto> _createValidator;
 
-    public PessoasController(IPessoaService pessoaService)
+    public PessoasController(IPessoaService pessoaService, IValidator<CreatePessoaDto> createValidator)
     {
         _pessoaService = pessoaService;
+        _createValidator = createValidator;
     }
 
     [HttpGet]
@@ -47,6 +50,15 @@ public class PessoasController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<PessoaDto>> Create([FromBody] CreatePessoaDto dto, CancellationToken cancellationToken = default)
     {
+        var validation = await _createValidator.ValidateAsync(dto, cancellationToken);
+        if (!validation.IsValid)
+        {
+            var errors = validation.Errors
+                .GroupBy(e => e.PropertyName)
+                .ToDictionary(g => g.Key, g => g.Select(e => e.ErrorMessage).ToArray());
+            return BadRequest(new { message = "Dados inválidos.", errors });
+        }
+
         var pessoa = await _pessoaService.CreateAsync(dto, cancellationToken);
         return CreatedAtAction(nameof(GetById), new { id = pessoa.Id }, pessoa);
     }

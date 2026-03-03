@@ -14,10 +14,12 @@ import * as agendaApi from "@/api/agenda";
 import { fetchCustomersPaged } from "@/api/customers";
 
 interface CustomerTableProps {
-  customers: Customer[]; // mantido para compatibilidade, mas a tabela usa paginação do backend
+  customers: Customer[];
   onEdit: (customer: Customer) => void;
   onDelete: (id: string) => void;
   onView: (customer: Customer) => void;
+  /** Quando mudar, a tabela recarrega a página atual (ex.: após criar/editar/excluir cliente) */
+  refreshTrigger?: number;
 }
 
 const PAGE_SIZE = 8;
@@ -27,6 +29,7 @@ export function CustomerTable({
   onEdit,
   onDelete,
   onView,
+  refreshTrigger = 0,
 }: CustomerTableProps) {
   const { t } = useI18n();
 
@@ -61,7 +64,7 @@ export function CustomerTable({
     };
 
     void loadPage();
-  }, [page]);
+  }, [page, refreshTrigger]);
 
   useEffect(() => {
     const loadAgenda = async () => {

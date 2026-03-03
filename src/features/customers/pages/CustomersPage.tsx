@@ -26,6 +26,7 @@ export default function CustomersPage() {
   const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
   const [viewingCustomer, setViewingCustomer] = useState<Customer | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [tableRefreshKey, setTableRefreshKey] = useState(0);
 
   const handleNavigate = (view: string) => {
     if (view === "cadastrar") {
@@ -50,11 +51,22 @@ export default function CustomersPage() {
     try {
       await deleteCustomer(deleteId);
       setDeleteId(null);
+      setTableRefreshKey((k) => k + 1);
     } catch (err) {
       console.error(err);
     } finally {
       setDeleting(false);
     }
+  };
+
+  const handleSaveCustomer = async (data: Omit<Customer, "id" | "dataCadastro" | "dataAtualizacao">) => {
+    await addCustomer(data);
+    setTableRefreshKey((k) => k + 1);
+  };
+
+  const handleUpdateCustomer = async (id: string, data: Partial<Customer>) => {
+    await updateCustomer(id, data);
+    setTableRefreshKey((k) => k + 1);
   };
 
   return (
@@ -138,6 +150,7 @@ export default function CustomersPage() {
           onEdit={handleEdit}
           onDelete={(id) => setDeleteId(id)}
           onView={(c) => setViewingCustomer(c)}
+          refreshTrigger={tableRefreshKey}
         />
       ) : (
         <CustomerCharts customers={customers} />
@@ -156,8 +169,8 @@ export default function CustomersPage() {
             setEditingCustomer(null);
             setCurrentView("dashboard");
           }}
-          onSave={addCustomer}
-          onUpdate={updateCustomer}
+          onSave={handleSaveCustomer}
+          onUpdate={handleUpdateCustomer}
           customer={editingCustomer}
         />
 

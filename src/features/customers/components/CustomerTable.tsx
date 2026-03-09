@@ -34,25 +34,32 @@ export function CustomerTable({
   const { t } = useI18n();
 
   const [search, setSearch] = useState("");
+  const [searchInput, setSearchInput] = useState("");
   const [page, setPage] = useState(1);
   const [rows, setRows] = useState<Customer[]>([]);
   const [total, setTotal] = useState(0);
   const [loadingPage, setLoadingPage] = useState(false);
   const [agendaResumo, setAgendaResumo] = useState<Record<string, string>>({});
 
-  const filtered = rows.filter(
-    (c) =>
-      c.nome.toLowerCase().includes(search.toLowerCase()) ||
-      c.email.toLowerCase().includes(search.toLowerCase())
-  );
-
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setSearch(searchInput);
+      setPage(1);
+    }, 300);
+    return () => clearTimeout(t);
+  }, [searchInput]);
 
   useEffect(() => {
     const loadPage = async () => {
       try {
         setLoadingPage(true);
-        const result = await fetchCustomersPaged(page, PAGE_SIZE);
+        const result = await fetchCustomersPaged(
+          page,
+          PAGE_SIZE,
+          search.trim() || undefined
+        );
         setRows(result.items);
         setTotal(result.totalCount);
       } catch {
@@ -64,7 +71,7 @@ export function CustomerTable({
     };
 
     void loadPage();
-  }, [page, refreshTrigger]);
+  }, [page, search, refreshTrigger]);
 
   useEffect(() => {
     const loadAgenda = async () => {
@@ -136,11 +143,8 @@ export function CustomerTable({
         <Search className="h-4 w-4 text-muted-foreground" />
         <Input
           placeholder={t.searchPlaceholder}
-          value={search}
-          onChange={(e) => {
-            setSearch(e.target.value);
-            setPage(1);
-          }}
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
           className="bg-secondary border-border"
         />
       </div>
@@ -174,7 +178,7 @@ export function CustomerTable({
                   {"Carregando..."}
                 </td>
               </tr>
-            ) : filtered.length === 0 ? (
+            ) : rows.length === 0 ? (
               <tr>
                 <td
                   colSpan={9}
@@ -184,7 +188,7 @@ export function CustomerTable({
                 </td>
               </tr>
             ) : (
-              filtered.map((customer) => (
+              rows.map((customer) => (
                 <tr
                   key={customer.id}
                   className="border-b border-border/50 hover:bg-secondary/50 transition-colors"
@@ -270,7 +274,7 @@ export function CustomerTable({
       {/* PAGINAÇÃO */}
       <div className="flex items-center justify-between mt-4 text-sm text-muted-foreground">
         <span>
-          {t.showing} {filtered.length} {t.of} {total}{" "}
+          {t.showing} {rows.length} {t.of} {total}{" "}
           {t.customers}
         </span>
 

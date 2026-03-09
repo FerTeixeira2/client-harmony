@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj": {}
+    "C:\\Users\\FernandoTeixeiraFilh\\Desktop\\DEV\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj": {
+    "C:\\Users\\FernandoTeixeiraFilh\\Desktop\\DEV\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\FernandoTeixeiraFilh\\Desktop\\DEV\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj",
         "projectName": "MyApp.Domain",
-        "projectPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj",
-        "packagesPath": "C:\\Users\\Ferna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ferna\\OneDrive\\Desktop\\DEV\\novo_gerencimaneto_clientes\\client-harmony\\backend\\src\\MyApp.Domain\\obj\\",
+        "projectPath": "C:\\Users\\FernandoTeixeiraFilh\\Desktop\\DEV\\client-harmony\\backend\\src\\MyApp.Domain\\MyApp.Domain.csproj",
+        "packagesPath": "C:\\Users\\FernandoTeixeiraFilh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\FernandoTeixeiraFilh\\Desktop\\DEV\\client-harmony\\backend\\src\\MyApp.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Ferna\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\FernandoTeixeiraFilh\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"

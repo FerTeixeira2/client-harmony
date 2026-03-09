@@ -23,10 +23,18 @@ export async function fetchCustomers(): Promise<Customer[]> {
 
 export async function fetchCustomersPaged(
   page: number,
-  pageSize: number
+  pageSize: number,
+  searchTerm?: string
 ): Promise<PagedResult<Customer>> {
+  const params = new URLSearchParams({
+    page: String(page),
+    pageSize: String(pageSize),
+  });
+  if (searchTerm?.trim()) {
+    params.set("searchTerm", searchTerm.trim());
+  }
   const result = await apiFetch<PagedResult<Customer>>(
-    `${BASE}/paged?page=${page}&pageSize=${pageSize}`
+    `${BASE}/paged?${params.toString()}`
   );
 
   return {

@@ -11,11 +11,16 @@ public class PessoasController : ControllerBase
 {
     private readonly IPessoaService _pessoaService;
     private readonly IValidator<CreatePessoaDto> _createValidator;
+    private readonly IValidator<UpdatePessoaDto> _updateValidator;
 
-    public PessoasController(IPessoaService pessoaService, IValidator<CreatePessoaDto> createValidator)
+    public PessoasController(
+        IPessoaService pessoaService,
+        IValidator<CreatePessoaDto> createValidator,
+        IValidator<UpdatePessoaDto> updateValidator)
     {
         _pessoaService = pessoaService;
         _createValidator = createValidator;
+        _updateValidator = updateValidator;
     }
 
     [HttpGet]
@@ -27,6 +32,7 @@ public class PessoasController : ControllerBase
 
     [HttpGet("paged")]
     public async Task<ActionResult<PagedResult<PessoaDto>>> GetPaged(
+        [FromQuery] string? searchTerm,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 8,
         CancellationToken cancellationToken = default)
@@ -34,7 +40,7 @@ public class PessoasController : ControllerBase
         if (page <= 0) page = 1;
         if (pageSize <= 0) pageSize = 8;
 
-        var result = await _pessoaService.GetPagedAsync(page, pageSize, cancellationToken);
+        var result = await _pessoaService.GetPagedAsync(page, pageSize, searchTerm, cancellationToken);
         return Ok(result);
     }
 
@@ -66,6 +72,15 @@ public class PessoasController : ControllerBase
     [HttpPut("{id:guid}")]
     public async Task<ActionResult<PessoaDto>> Update(Guid id, [FromBody] UpdatePessoaDto dto, CancellationToken cancellationToken = default)
     {
+        var validation = await _updateValidator.ValidateAsync(dto, cancellationToken);
+        if (!validation.IsValid)
+        {
+            var errors = validation.Errors
+                .GroupBy(e => e.PropertyName)
+                .ToDictionary(g => g.Key, g => g.Select(e => e.ErrorMessage).ToArray());
+            return BadRequest(new { message = "Dados inválidos.", errors });
+        }
+
         var pessoa = await _pessoaService.UpdateAsync(id, dto, cancellationToken);
         return Ok(pessoa);
     }

@@ -33,7 +33,7 @@ public class PessoaRepository : IPessoaRepository
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<(IReadOnlyList<Pessoa> Items, int TotalCount)> GetPagedAsync(int page, int pageSize, CancellationToken cancellationToken = default)
+    public async Task<(IReadOnlyList<Pessoa> Items, int TotalCount)> GetPagedAsync(int page, int pageSize, string? searchTerm = null, CancellationToken cancellationToken = default)
     {
         if (page <= 0) page = 1;
         if (pageSize <= 0) pageSize = 10;
@@ -42,7 +42,17 @@ public class PessoaRepository : IPessoaRepository
             .Where(p => p.StatusId == 1)
             .Include(p => p.Telefones.Where(t => t.Ativo))
             .Include(p => p.Enderecos.Where(e => e.Ativo))
-            .OrderByDescending(p => p.DataCadastro);
+            .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            var term = searchTerm.Trim().ToLower();
+            query = query.Where(p =>
+                (p.Nome != null && p.Nome.ToLower().Contains(term)) ||
+                (p.Email != null && p.Email.ToLower().Contains(term)));
+        }
+
+        query = query.OrderByDescending(p => p.DataCadastro);
 
         var total = await query.CountAsync(cancellationToken);
 

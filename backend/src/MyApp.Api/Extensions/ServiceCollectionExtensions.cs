@@ -24,14 +24,17 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration, IHostEnvironment? hostEnvironment = null)
     {
         var isTesting = hostEnvironment?.IsEnvironment("Testing") ?? false;
-        if (isTesting)
+        var useInMemory = configuration.GetValue<bool>("UseInMemoryDatabase");
+
+        if (isTesting || useInMemory)
         {
             services.AddDbContext<AppDbContext>(options =>
                 options.UseInMemoryDatabase("InMemoryTestDb"));
         }
         else
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection")
+            var connectionString = configuration.GetConnectionString("SqlAuthConnection")
+                ?? configuration.GetConnectionString("DefaultConnection")
                 ?? "Server=(localdb)\\mssqllocaldb;Database=MyAppDb;Trusted_Connection=true;";
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(connectionString));

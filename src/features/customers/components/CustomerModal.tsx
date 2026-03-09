@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Customer } from "@/features/customers/services/customerService";
+import { fetchCustomerById } from "@/api/customers";
 import { useViaCep } from "@/shared/hooks/useViaCep";
 import { useI18n } from "@/shared/i18n";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -14,7 +15,8 @@ interface CustomerModalProps {
   onClose: () => void;
   onSave: (data: Omit<Customer, "id" | "dataCadastro" | "dataAtualizacao">) => void | Promise<void>;
   onUpdate?: (id: string, data: Partial<Customer>) => void | Promise<void>;
-  customer?: Customer | null;
+  /** Em edição: ID do cliente; ao abrir o modal faz GET /api/pessoas/{id} e preenche o formulário. */
+  customerId?: string | null;
 }
 
 // ===== VALIDAÇÕES =====
@@ -89,25 +91,49 @@ const emptyForm = {
   bairro: "", cidade: "", estado: "", imagemUrl: "",
 };
 
-export function CustomerModal({ open, onClose, onSave, onUpdate, customer }: CustomerModalProps) {
+export function CustomerModal({ open, onClose, onSave, onUpdate, customerId }: CustomerModalProps) {
   const { t } = useI18n();
   const [form, setForm] = useState(emptyForm);
   const { fetchAddress, loading: cepLoading } = useViaCep();
-  const isEditing = !!customer;
+  const isEditing = !!customerId;
+  const [loadingCustomer, setLoadingCustomer] = useState(false);
 
   useEffect(() => {
-    if (customer) {
-      setForm({
-        nome: customer.nome, email: customer.email, telefone: formatPhone(customer.telefone),
-        cpf: formatCPF(customer.cpf), cep: customer.cep, logradouro: customer.logradouro,
-        numero: customer.numero, complemento: customer.complemento,
-        bairro: customer.bairro, cidade: customer.cidade, estado: customer.estado,
-        imagemUrl: customer.imagemUrl,
-      });
+    if (!open) return;
+
+    if (customerId) {
+      setLoadingCustomer(true);
+      fetchCustomerById(customerId)
+        .then((customer) => {
+          if (customer) {
+            setForm({
+              nome: customer.nome,
+              email: customer.email,
+              telefone: formatPhone(customer.telefone),
+              cpf: formatCPF(customer.cpf),
+              cep: customer.cep ?? "",
+              logradouro: customer.logradouro ?? "",
+              numero: customer.numero ?? "",
+              complemento: customer.complemento ?? "",
+              bairro: customer.bairro ?? "",
+              cidade: customer.cidade ?? "",
+              estado: customer.estado ?? "",
+              imagemUrl: customer.imagemUrl ?? "",
+            });
+          } else {
+            toast.error(t.errorSaving ?? "Cliente não encontrado.");
+            onClose();
+          }
+        })
+        .catch(() => {
+          toast.error(t.errorSaving ?? "Erro ao carregar cliente.");
+          onClose();
+        })
+        .finally(() => setLoadingCustomer(false));
     } else {
       setForm(emptyForm);
     }
-  }, [customer, open]);
+  }, [open, customerId]);
 
   const handleChange = (field: string, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -164,8 +190,8 @@ export function CustomerModal({ open, onClose, onSave, onUpdate, customer }: Cus
   
     setSaving(true);
     try {
-      if (isEditing && onUpdate) {
-        await onUpdate(customer!.id, form);
+      if (isEditing && customerId && onUpdate) {
+        await onUpdate(customerId, form);
         toast.success(t.customerUpdated);
       } else {
         await onSave(form);
@@ -192,6 +218,12 @@ export function CustomerModal({ open, onClose, onSave, onUpdate, customer }: Cus
           </DialogTitle>
         </DialogHeader>
 
+        {loadingCustomer ? (
+          <div className="flex items-center justify-center py-12 gap-2 text-muted-foreground">
+            <Loader2 className="h-6 w-6 animate-spin" />
+            <span>Carregando cliente...</span>
+          </div>
+        ) : (
         <div className="space-y-4">
           {/* Form fields */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -295,6 +327,7 @@ export function CustomerModal({ open, onClose, onSave, onUpdate, customer }: Cus
             </Button>
           </div>
         </div>
+        )}
       </DialogContent>
     </Dialog>
   );

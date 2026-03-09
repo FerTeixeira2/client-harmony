@@ -23,7 +23,7 @@ export default function CustomersPage() {
   const [currentView, setCurrentView] = useState("dashboard");
   const [tab, setTab] = useState<"listagem" | "graficos">("listagem");
   const [modalOpen, setModalOpen] = useState(false);
-  const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
+  const [editingCustomerId, setEditingCustomerId] = useState<string | null>(null);
   const [viewingCustomer, setViewingCustomer] = useState<Customer | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [tableRefreshKey, setTableRefreshKey] = useState(0);
@@ -31,7 +31,7 @@ export default function CustomersPage() {
   const handleNavigate = (view: string) => {
     if (view === "cadastrar") {
       setCurrentView("cadastrar");
-      setEditingCustomer(null);
+      setEditingCustomerId(null);
       setModalOpen(true);
     } else {
       setCurrentView(view);
@@ -39,7 +39,7 @@ export default function CustomersPage() {
   };
 
   const handleEdit = (customer: Customer) => {
-    setEditingCustomer(customer);
+    setEditingCustomerId(customer.id);
     setModalOpen(true);
   };
 
@@ -166,12 +166,12 @@ export default function CustomersPage() {
           open={modalOpen}
           onClose={() => {
             setModalOpen(false);
-            setEditingCustomer(null);
+            setEditingCustomerId(null);
             setCurrentView("dashboard");
           }}
           onSave={handleSaveCustomer}
           onUpdate={handleUpdateCustomer}
-          customer={editingCustomer}
+          customerId={editingCustomerId}
         />
 
       <CustomerView open={!!viewingCustomer} onClose={() => setViewingCustomer(null)} customer={viewingCustomer} />
